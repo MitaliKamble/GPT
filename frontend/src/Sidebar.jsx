@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { MyContext } from "./MyContext.jsx";
 import { useEffect } from "react";
 import { v1 as uuidv1 } from "uuid";
+import server from "./environment.js";
 
 function Sidebar() {
   const {
@@ -18,7 +19,7 @@ function Sidebar() {
 
   const getAllThreads = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/thread");
+      const response = await fetch(`${server}/api/thread`);
       const res = await response.json();
       const filteredData = res.map((thread) => ({
         threadId: thread.threadId,
@@ -48,7 +49,7 @@ function Sidebar() {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/api/thread/${newThreadId}`,
+        `${server}/api/thread/${newThreadId}`,
       );
       const res = await response.json();
       console.log(res);
@@ -62,7 +63,7 @@ function Sidebar() {
 
   const deleteThread = async(threadId) => {
     try {
-        const response = await fetch(`http://localhost:8080/api/thread/${threadId}`, {method: "DELETE"});
+        const response = await fetch(`${server}/api/thread/${threadId}`, {method: "DELETE"});
         const res = await response.json();
         console.log(res);
 
