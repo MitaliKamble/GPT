@@ -8,7 +8,7 @@ const ai = new GoogleGenAI({
 const getAiResponse = async (userInput) => {
     try {
         const response = await ai.models.generateContent({
-            model: "gemini-3.6-flash",
+            model: "gemini-3.7-flash",
             contents: userInput
         });
 
