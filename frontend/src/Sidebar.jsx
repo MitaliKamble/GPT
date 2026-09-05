@@ -18,19 +18,31 @@ function Sidebar() {
   } = useContext(MyContext);
 
   const getAllThreads = async () => {
-    try {
-      const response = await fetch(`${server}/api/thread`);
-      const res = await response.json();
-      const filteredData = res.map((thread) => ({
-        threadId: thread.threadId,
-        title: thread.title,
-      }));
-      // console.log(filteredData);
-      setAllThreads(filteredData);
-    } catch (err) {
-      console.log(err);
+  try {
+    const response = await fetch(`${server}/api/thread`);
+    const res = await response.json();
+
+    console.log("STATUS:", response.status);
+    console.log("THREAD RESPONSE:", res);
+
+    if (!response.ok) {
+      throw new Error(res.error || "Failed to fetch threads");
     }
-  };
+
+    if (!Array.isArray(res)) {
+      throw new Error("Threads response is not an array");
+    }
+
+    const filteredData = res.map((thread) => ({
+      threadId: thread.threadId,
+      title: thread.title,
+    }));
+
+    setAllThreads(filteredData);
+  } catch (err) {
+    console.log("THREAD ERROR:", err);
+  }
+};
 
   useEffect(() => {
     getAllThreads();

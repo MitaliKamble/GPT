@@ -24,7 +24,7 @@ router.post("/test", async(req,res) => {
 //Get all threads
 router.get("/thread", async(req, res) => {
     try {
-        const threads = await Thread.find({}).sort({updatedaT: -1});
+        const threads = await Thread.find({}).sort({updatedAt: -1});
         //This will sort the chat in descending order
         res.json(threads);
     } catch(err) {
