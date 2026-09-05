@@ -22,24 +22,16 @@ router.post("/test", async(req,res) => {
 })
 
 //Get all threads
-router.get("/thread", async (req, res) => {
-  try {
-    console.log("🔥 THREAD ROUTE CALLED");
-
-    const threads = await Thread.find({}).sort({ updatedAt: -1 });
-
-    console.log("✅ THREADS FOUND:", threads);
-
-    res.status(200).json(threads);
-  } catch (err) {
-    console.error("❌ THREAD ERROR:", err);
-
-    res.status(500).json({
-      error: "Failed to fetch threads",
-      details: err.message,
-    });
-  }
-});
+router.get("/thread", async(req, res) => {
+    try {
+        const threads = await Thread.find({}).sort({updatedAt: -1});
+        //This will sort the chat in descending order
+        res.json(threads);
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({error: "Failed to fetch threads"});
+    }
+})
 
 router.get("/thread/:threadId", async(req,res) => {
     const { threadId } = req.params;
