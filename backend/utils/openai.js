@@ -9,7 +9,7 @@ const getAiResponse = async (userInput) => {
     try {
         const response = await ai.models.generateContent({
             model: "gemini-3.7-flash",
-            contents: userInput
+            contents:"You are an expert in education domain.Anser the following" + userInput
         });
 
         console.log("Gemini response:", response.text);
